@@ -1,4 +1,4 @@
-use geometric_server::{AreaCircleMessage, AreaSquareMessage, GeometricClientImpl};
+use geometric_server::{AreaCircleMessage, AreaSquareMessage, GeometricGrpcInterface};
 
 #[derive(Debug)]
 pub enum Shape {
@@ -7,7 +7,7 @@ pub enum Shape {
 }
 
 impl Shape {
-    pub async fn call_server(&self, client: &GeometricClientImpl) -> f32 {
+    pub async fn call_server(&self, client: &mut GeometricGrpcInterface) -> f32 {
         println!("Calling server with {self:?}");
         let res = match self {
             Shape::Square(a) => {

@@ -2,16 +2,13 @@ mod shape;
 
 use crate::shape::Shape;
 use file_monitor::FileMonitor;
-use geometric_server::GeometricClientImpl;
+use geometric_server::GeometricGrpcInterface;
 use std::sync::{Arc, Condvar, Mutex};
 use std::thread;
 
 #[tokio::main]
 async fn main() {
-    let client = GeometricClientImpl {
-        addr: "localhost".to_string(),
-        port: 50051,
-    };
+    let mut client = GeometricGrpcInterface::new("localhost", 50051).await;
 
     let config_pair = Arc::new((Mutex::new(String::new()), Condvar::new()));
     let config_pair_2 = config_pair.clone();
@@ -32,7 +29,7 @@ async fn main() {
             let Some(shape) = parse_line(line) else {
                 panic!("Invalid operation: {line}");
             };
-            shape.call_server(&client).await;
+            shape.call_server(&mut client).await;
         }
     }
 }
