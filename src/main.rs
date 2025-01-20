@@ -40,8 +40,8 @@ async fn main() {
 fn parse_line(line: &str) -> Option<Shape> {
     let (op, rest) = line.split_once(' ')?;
     match op {
-        "square" => Some(Shape::Square(rest.parse::<u64>().ok()?)),
-        "circle" => Some(Shape::Circle(rest.parse::<u64>().ok()?)),
+        "square" => Some(Shape::Square(rest.parse::<f32>().ok()?)),
+        "circle" => Some(Shape::Circle(rest.parse::<f32>().ok()?)),
         _ => None,
     }
 }
