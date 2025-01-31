@@ -8,7 +8,7 @@ use std::thread;
 
 #[tokio::main]
 async fn main() {
-    let mut client = GeometricGrpcInterface::new("localhost", 50051).await;
+    let mut client = GeometricGrpcInterface::new("localhost", 50052).await;
 
     let config_pair = Arc::new((Mutex::new(String::new()), Condvar::new()));
     let config_pair_2 = config_pair.clone();
